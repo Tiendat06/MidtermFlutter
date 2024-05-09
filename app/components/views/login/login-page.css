@@ -1,0 +1,64 @@
+@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.login-action-bar{
+    background-color: white;
+    color: black;
+    text-align: center;
+    width: 100%;
+
+}
+
+.login-page{
+    align-items: center;
+    background-color: white;
+}
+
+.login-form{
+    width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.login-label{
+    text-align: center;
+    font-size: 25;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: red;
+}
+
+.login-input-field{
+    margin-bottom: 20px;
+    color: black;
+}
+
+.login__pwd-inp, .login__username-inp{
+    font-size: 14;
+}
+
+.main-layout{
+    background-color: white;
+
+}
+
+.main__list-item{
+    color: black;
+    font-weight: bold;
+}
+
+.main__list-item--title{
+    font-size: 16;
+    color: red !important;
+}
+
+Button.login-btn{
+    font-size: 16px;
+    margin-top: 20px;
+    background-color: red;
+    border-radius: 30px;
+}

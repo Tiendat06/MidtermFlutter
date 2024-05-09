@@ -1,0 +1,32 @@
+@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.main__action-bar {
+    background-color: #FF0000; 
+    color: #FFFFFF;
+}
+
+.main__action-bar--icon {
+    color: #00FF00; 
+    font-size: 14px;
+}
+
+.main-layout{
+    background-color: white;
+
+}
+
+.main__list-item{
+    color: black;
+    font-weight: bold;
+}
+
+.main__list-item--title{
+    font-size: 16;
+    color: red !important;
+}

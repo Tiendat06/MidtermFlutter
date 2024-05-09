@@ -1,0 +1,26 @@
+
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+
+    <ActionBar title="Note Management" class="main__action-bar" color="white" backgroundColor="purple" icon="" >
+        <ActionItem icon="~/public/img/more-vert.png" color="white" class="main__action-bar--icon" tap="onActionItemTap" ios.position="right" />
+    </ActionBar>
+    <GridLayout>
+    
+        <StackLayout class="p-4 main-layout">
+            <ListView id="listView" items="{{ items }}">
+                <ListView.itemTemplate>
+                    <StackLayout rows="auto" columns="*, *">
+                        <Label class="main__list-item main__list-item--title" row="0" col="0" text="{{ title }}" />
+                        <Label class="main__list-item" row="0" col="1" text="{{ content }}" />
+                    </StackLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <StackLayout orientation="horizontal" horizontalAlignment="right" verticalAlignment="bottom" margin="20">
+            <Button text="+" tap="onFloatingButtonTaps"
+                    backgroundColor="#007AFF" color="white"
+                    borderRadius="30" width="60" height="60" />
+        </StackLayout>
+    </GridLayout>
+</Page>

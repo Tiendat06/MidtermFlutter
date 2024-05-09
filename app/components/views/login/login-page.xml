@@ -1,0 +1,39 @@
+<Page navigatingTo="onNavigatingToLogin" xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:CheckBox="@nativescript-community/ui-checkbox">
+    <ActionBar color="white" backgroundColor="purple" title="My App" icon="" class='login-action-bar'> 
+        <NavigationButton color="white" android.systemIcon="ic_menu_back" text="Back" tap="goBack" />
+    </ActionBar>
+    <!-- <ScrollView> -->
+        <FlexboxLayout class='login-page'>
+            <StackLayout class='login-form'>
+                <!-- <Label class='login-label' text="E-Commercial" textWrap="true"></Label> -->
+                <Label class='login-label' text="{{ message }}" textWrap="true"></Label>
+
+                <StackLayout class='login-input-field'>
+                    <TextField class="login__username-inp" hint="Username" text="" style="color: black" />
+                </StackLayout>
+
+                <StackLayout class='login-input-field'>
+                    <TextField class="login__pwd-inp" hint="Password" text="" style="color: black" />
+                </StackLayout>
+
+                <StackLayout class="p-4 main-layout">
+                    <ListView id="listView" items="{{ items }}">
+                        <ListView.itemTemplate>
+                            <StackLayout rows="auto" columns="*, *">
+                                <Label class="main__list-item main__list-item--title" row="0" col="0" text="{{ title }}" />
+                                <Label class="main__list-item" row="0" col="1" text="{{ content }}" />
+                            </StackLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <!-- <StackLayout class='login-input-field'>
+                    <CheckBox text="Remember me" />
+                    <CheckBox text="Remember me" checked="true" />
+                </StackLayout> -->
+
+                <Button tap="" class="login-btn" text="Login" ></Button>
+            </StackLayout>
+        </FlexboxLayout>
+    <!-- </ScrollView> -->
+</Page>
