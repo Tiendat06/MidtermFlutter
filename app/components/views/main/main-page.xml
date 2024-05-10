@@ -9,10 +9,11 @@
         <StackLayout class="p-4 main-layout">
             <ListView id="listView" items="{{ items }}">
                 <ListView.itemTemplate>
-                    <StackLayout tap="onItemTap" rows="auto" columns="*, *">
-                        <Label class="main__list-item main__list-item--title" row="0" col="0" text="{{ title }}" />
-                        <Label class="main__list-item" row="0" col="1" text="{{ content }}" />
-                        <Label text="{{ id }}" visibility="collapsed" />
+                    <StackLayout tap="onItemTap" doubleTap="onItemDoubleTap" rows="auto" columns="*, *">
+                        <Label class="main__list-item main__list-item--title" id="title" row="0" col="0" text="{{ title }}" />
+                        <Label class="main__list-item" row="0" col="1" id="content" text="{{ content }}" />
+                        <Button text="Delete" tap="onDeleteButtonTap" visibility="collapsed" />
+                        <Label text="{{ id }}" id="id" visibility="collapsed" />
                     </StackLayout>
                 </ListView.itemTemplate>
             </ListView>
@@ -25,3 +26,4 @@
         </StackLayout>
     </GridLayout>
 </Page>
+

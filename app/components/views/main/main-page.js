@@ -1,4 +1,6 @@
-import { createViewModel } from '../../views-model/main-view-model';
+import { createViewModel, onDoubleTapDelete } from '../../views-model/main-view-model';
+import { alert, confirm } from '@nativescript/core';
+import { ApplicationSettings } from '@nativescript/core';
 
 export function onNavigatingTo(args) {
   const page = args.object;
@@ -32,4 +34,19 @@ export function onItemTap(args){
 };
 
   page.frame.navigate(navigationEntry);
+}
+
+export function onItemDoubleTap(args) {
+    const tappedItem = args.object.bindingContext;
+    const page = args.object.page;
+    const itemId = tappedItem.id;
+    confirm({
+        title: "Delete Confirmation",
+        message: "Do you want to delete this note ?",
+        okButtonText: "Sure",
+    }).then((result) => {
+        if(result){
+            onDoubleTapDelete(args, itemId);
+        }
+    });
 }

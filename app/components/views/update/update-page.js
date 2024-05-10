@@ -1,5 +1,6 @@
 import { createUpdateViewModel, onUpdateTap } from '../../views-model/update-view-model';
 import { ApplicationSettings } from '@nativescript/core';
+import { confirm } from '@nativescript/core';
 
 export function onNavigatingToUpdate(args) {
     const page = args.object;
@@ -21,6 +22,14 @@ export function goBack(args) {
 }
 
 export function onUpdatePageTap(args){
-    onUpdateTap(args)
+    confirm({
+        title: "Delete Confirmation",
+        message: "Do you want to delete this note",
+        okButtonText: "Sure",
+    }).then((result) => {
+        if(result){
+            onUpdateTap(args);
+        }
+    });
 }
 
