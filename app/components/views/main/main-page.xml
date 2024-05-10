@@ -9,9 +9,10 @@
         <StackLayout class="p-4 main-layout">
             <ListView id="listView" items="{{ items }}">
                 <ListView.itemTemplate>
-                    <StackLayout rows="auto" columns="*, *">
+                    <StackLayout tap="onItemTap" rows="auto" columns="*, *">
                         <Label class="main__list-item main__list-item--title" row="0" col="0" text="{{ title }}" />
                         <Label class="main__list-item" row="0" col="1" text="{{ content }}" />
+                        <Label text="{{ id }}" visibility="collapsed" />
                     </StackLayout>
                 </ListView.itemTemplate>
             </ListView>
@@ -19,7 +20,7 @@
 
         <StackLayout orientation="horizontal" horizontalAlignment="right" verticalAlignment="bottom" margin="20">
             <Button text="+" tap="onFloatingButtonTaps"
-                    backgroundColor="#007AFF" color="white"
+                    backgroundColor="purple" color="white"
                     borderRadius="30" width="60" height="60" />
         </StackLayout>
     </GridLayout>

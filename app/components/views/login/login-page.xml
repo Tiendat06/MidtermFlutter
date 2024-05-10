@@ -6,7 +6,7 @@
         <FlexboxLayout class='login-page'>
             <StackLayout class='login-form'>
                 <!-- <Label class='login-label' text="E-Commercial" textWrap="true"></Label> -->
-                <Label class='login-label' text="{{ message }}" textWrap="true"></Label>
+                <Label class='login-label' text="E-Commercial" textWrap="true"></Label>
 
                 <StackLayout class='login-input-field'>
                     <TextField class="login__username-inp" hint="Username" text="" style="color: black" />

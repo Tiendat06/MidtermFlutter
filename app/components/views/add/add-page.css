@@ -1,0 +1,20 @@
+@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#title{
+    border-width: 1;
+    border-color: #000;
+    border-radius: 5;
+    height: 100px;
+    font-size: 14;
+}
+
+Button.add-btn{
+    background-color: purple;
+    color: white;
+    border-radius: 10;
+}

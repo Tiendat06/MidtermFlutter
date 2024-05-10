@@ -1,5 +1,7 @@
 import { Observable } from '@nativescript/core';
 import { ObservableArray } from '@nativescript/core';
+import { ApplicationSettings } from '@nativescript/core';
+
 
 function getMessage(counter) {
   if (counter <= 0) {
@@ -21,6 +23,16 @@ export function createViewModel() {
     {id: '4', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
     {id: '5', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
   ];
+
+  const jsonList = ApplicationSettings.getString("list");
+
+  if (jsonList) {
+      list = JSON.parse(jsonList);
+      console.log(list);
+  } else {
+      const jsonList = JSON.stringify(list);
+      ApplicationSettings.setString("list", jsonList);
+  }
 
   viewModel.set('items', new ObservableArray(list))
 

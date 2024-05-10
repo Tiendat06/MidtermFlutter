@@ -1,0 +1,21 @@
+
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingToAdd">
+
+    <ActionBar title="Add note" class="main__action-bar" color="white" backgroundColor="purple" icon="" >
+        <NavigationButton color="white" android.systemIcon="ic_menu_back" text="Back" tap="goBack" />
+
+    </ActionBar>
+    <StackLayout class="p-2" backgroundColor="white">
+        <StackLayout class="mt-4" row="0">
+            <TextField color="black" class="p-2" id="title" hint="title" editable="true" ></TextField>
+        </StackLayout>
+
+        <StackLayout class="mt-4" row="1">
+            <TextView class="p-2" color="black" style="border-width: 1; border-color: #000; border-radius: 5; height: 600px; font-size: 14" id="content" hint="content" editable="true" />
+        </StackLayout>
+
+        <StackLayout class="mt-3">
+            <Button tap="onAddPageTap" class="add-btn" text="Save all changes" ></Button>
+        </StackLayout>
+    </StackLayout>
+</Page>
