@@ -24,7 +24,7 @@ export function goBack(args) {
 export function onUpdatePageTap(args){
     confirm({
         title: "Delete Confirmation",
-        message: "Do you want to delete this note",
+        message: "Do you want to update this note ?",
         okButtonText: "Sure",
     }).then((result) => {
         if(result){

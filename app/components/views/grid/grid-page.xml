@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingToGrid">
+    <ActionBar title="Note Management" class="main__action-bar" color="white" backgroundColor="purple" icon="">
+        <ActionItem icon="~/public/img/more-vert.png" color="white" class="main__action-bar--icon" tap="onActionItemTap" ios.position="right" />
+    </ActionBar>
+
+    <FlexboxLayout flexWrap="wrap" class="list-container main-layout">
+        <ListView id="listView" items="{{ items }}" orientation="horizontal">
+            <ListView.itemTemplate width="100">
+                <StackLayout>
+                    <Label class="main__list-item main__list-item--title" id="title" text="{{ title }}" />
+                    <Label class="main__list-item" id="content" text="{{ content }}" />
+                </StackLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </FlexboxLayout> 
+</Page>
