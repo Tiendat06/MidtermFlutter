@@ -13,7 +13,6 @@
         <StackLayout class="mt-4" row="1">
             <TextView text="{{ content }}" class="p-2" color="black" style="border-width: 1; border-color: #000; border-radius: 5; height: 600px; font-size: 14" id="content" hint="content" editable="true" />
             <TextView text="{{ id }}" visibility="collapsed" id='update-id' />
-
         </StackLayout>
 
 

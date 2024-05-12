@@ -1,10 +1,12 @@
-import { createViewModel, onDoubleTapDelete } from '../../views-model/main-view-model';
-import { alert, confirm, prompt } from '@nativescript/core';
+import { createViewModel, onDoubleTapDelete, protectActions, createNewPassword } from '../../views-model/main-view-model';
+import { alert, confirm, prompt, action, login } from '@nativescript/core';
 import { ApplicationSettings } from '@nativescript/core';
+// import { Toasty } from 'nativescript-toasty';
 
 export function onNavigatingTo(args) {
   const page = args.object;
-  ApplicationSettings.setBoolean("isLock", false);
+  // ApplicationSettings.setBoolean("isLock", false);
+  // ApplicationSettings.remove("password");
 
   page.addCssFile('./main-page.css');
   page.bindingContext = createViewModel();
@@ -47,6 +49,21 @@ export function onItemTap(args){
   const tappedItem = args.object.bindingContext;
   const page = args.object.page;
   const itemId = tappedItem.id;
+
+  var title = '';
+  var content = '';
+
+  var list = [];
+  var jsonList = ApplicationSettings.getString("list");
+  list = JSON.parse(jsonList);
+
+  list.forEach(item => {
+    if(item.id == itemId){
+      console.log(item);
+      title = item.title;
+      content = item.content;
+    }
+  })
   
   const navigationEntry = {
     moduleName: '~/components/views/update/update-page',
@@ -64,119 +81,111 @@ export function onItemTap(args){
       inputType: 'password',
     }).then((result) => {
       if(result.text == password){
+        ApplicationSettings.setString("title", title);
+        ApplicationSettings.setString("content", content);
+
         page.frame.navigate(navigationEntry);
+      }else{
+        alert({
+          title: 'Notice!',
+          message: 'Invalid password',
+          okButtonText: 'OK',
+        })
       }
     })
   }else{
+    ApplicationSettings.setString("title", title);
+    ApplicationSettings.setString("content", content);
     page.frame.navigate(navigationEntry);
   }
 
 }
 
 export function onItemDoubleTap(args) {
+    const password = ApplicationSettings.getString("password");
+    const isLock = ApplicationSettings.getBoolean("isLock");
+
     const tappedItem = args.object.bindingContext;
     const page = args.object.page;
     const itemId = tappedItem.id;
-    confirm({
-        title: "Delete Confirmation",
-        message: "Do you want to delete this note ?",
-        okButtonText: "Sure",
-    }).then((result) => {
-        if(result){
-            onDoubleTapDelete(args, itemId);
-        }
-    });
-}
-
-export function onActionItemTap(args){
-  const page = args.object.page;
-
-  const jsonList = ApplicationSettings.getString("list");
-  var list = [];
-  var stackLayouts = [];
-  if (jsonList) {
-    list = JSON.parse(jsonList);
-    list.forEach(element => {
-      stackLayouts.push(element.id);
-    });
-  }
-  let stackLayout = null;
-
-  let layout = page.getViewById("4")
-  layout.visibility = "visible";
-
-  // console.log(stackLayout);
-
-  // 
-
-  // if(password){
-    const isLock = ApplicationSettings.getBoolean("isLock");
 
     if(isLock == true){
-       prompt({
+      prompt({
         title: 'Password Confirmation',
-        message: 'Do you want to unlock these notes?',
+        message: 'Enter pasword',
         okButtonText: 'OK',
         neutralButtonText: 'Cancel',
         cancelable: true,
         inputType: 'password',
       }).then((result) => {
-        const password = ApplicationSettings.getString("password");
         if(result.text == password){
-          ApplicationSettings.setBoolean("isLock", false);
-          console.log("OK unlock");
-          layout.visibility = "collapsed";
-          stackLayouts.forEach( id =>  {
-            // console.log(id);
-            stackLayout = page.getViewById(id);
-            stackLayout.visibility = "collapsed";
+          confirm({
+            title: "Delete Confirmation",
+            message: "Do you want to delete this note ?",
+            okButtonText: "Sure",
+          }).then((result) => {
+            if(result){
+              onDoubleTapDelete(args, itemId);
+            }
           });
+        }else{
+          alert({
+            title: 'Notice!',
+            message: 'Invalid password',
+            okButtonText: 'OK',
+          })
         }
       })
     } else{
-      prompt({
-        title: 'Set Password',
-        message: 'Do you want to lock these notes?',
-        okButtonText: 'OK',
-        neutralButtonText: 'Cancel',
-        cancelable: true,
-        inputType: 'password',
+      confirm({
+          title: "Delete Confirmation",
+          message: "Do you want to delete this note ?",
+          okButtonText: "Sure",
       }).then((result) => {
-        if(result.text != ""){
-          console.log("OK lock");
-          ApplicationSettings.setBoolean("isLock", true);
-          ApplicationSettings.setString("password", result.text);
-          layout.visibility = "visible";
-          stackLayouts.forEach( id => {
-            // console.log(id);
-            stackLayout = page.getViewById(id);
-            stackLayout.visibility = "visible";
-          });
-        }else{
-          console.log("empty string");
-        }
-      })
+          if(result){
+              onDoubleTapDelete(args, itemId);
+          }
+      });
     }
-  // } 
-  // else{
-  //   prompt({
-  //     title: 'Create password',
-  //     message: 'Enter pasword',
-  //     okButtonText: 'OK',
-  //     neutralButtonText: 'Cancel',
-  //     cancelable: true,
-  //     inputType: 'password',
-  //   }).then((result) => {
-  //     if(result.text != ""){
-  //       // console.log("OK");
-  //       ApplicationSettings.setBoolean("isLock", true);
-  //       ApplicationSettings.setString("password", result.text);
-  //       layout.visibility = "visible";
-  //       stackLayouts.forEach( id => {
-  //         stackLayout = page.getViewById(id);
-  //         stackLayout.visibility = "visible";
-  //       });
-  //     }
-  //   })
-  // }
+}
+
+export function onActionItemTap(args){
+  const password = ApplicationSettings.getString("password");
+  const isLock = ApplicationSettings.getBoolean("isLock");
+  var items = "Protect actions";
+
+  if(isLock == true){
+    items = "Unlock actions";
+  }
+
+  action({
+    title: 'Settings',
+    message: 'Choose your action:',
+    cancelButtonText: 'Cancel',
+    actions: ['Create new password', items],
+    cancelable: true,
+    destructiveActionsIndexes: [2],
+  }).then((result) => {
+    if(result == "Create new password"){
+      if(password){
+        prompt({
+          title: 'Password Confirmation',
+          message: 'Enter pasword',
+          okButtonText: 'OK',
+          neutralButtonText: 'Cancel',
+          cancelable: true,
+          inputType: 'password',
+        }).then((result) => {
+          if(result.text == password){
+            createNewPassword();
+          }
+        })
+      } else{
+        createNewPassword();
+      }
+      
+    }else if(result == items){
+      protectActions(args);
+    }
+  })
 }
