@@ -15,11 +15,11 @@
                             <Label class="main__list-item" row="0" col="1" id="content" text="{{ content }}" />
                         </StackLayout>
 
-                        <StackLayout id="protect-icon" visibility="collapsed" tap="onMoreButtonTap" orientation="horizontal" horizontalAlignment="right" verticalAlignment="top" isEnabled="false">
+                        <StackLayout id="{{id}}" visibility="collapsed" tap="onMoreButtonTap" orientation="horizontal" horizontalAlignment="right" verticalAlignment="top">
                             <Image width="30" height="30" src="~/public/img/shield-icon.png" />
                         </StackLayout>
 
-                        <Label text="{{ id }}" id="id" visibility="collapsed" />
+                        <Label text="{{ id }}" id="" visibility="collapsed" />
                     </GridLayout>
                 </ListView.itemTemplate>
             </ListView>
