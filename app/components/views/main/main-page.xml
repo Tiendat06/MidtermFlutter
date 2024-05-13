@@ -2,7 +2,7 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
 
     <ActionBar title="Note Management" class="main__action-bar" color="white" backgroundColor="purple" icon="" >
-        <ActionItem icon="~/public/img/lock-icon.png" color="white" class="main__action-bar--icon" tap="onActionItemTap" ios.position="right" />
+        <ActionItem icon="~/public/img/more-vert-white-icon.png" color="white" class="main__action-bar--icon" tap="onActionItemTap" ios.position="right" />
 
     </ActionBar>
     <GridLayout>

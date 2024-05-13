@@ -178,6 +178,12 @@ export function onActionItemTap(args){
         }).then((result) => {
           if(result.text == password){
             createNewPassword();
+          } else{
+            alert({
+              title: 'Notice!',
+              message: 'Invalid password',
+              okButtonText: 'OK',
+            })
           }
         })
       } else{

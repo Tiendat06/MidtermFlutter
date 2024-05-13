@@ -73,8 +73,6 @@ export function protectActions(args){
     }
     let stackLayout = null;
 
-
-
     const isLock = ApplicationSettings.getBoolean("isLock");
     const password = ApplicationSettings.getString("password");
 
@@ -187,7 +185,7 @@ export function protectActions(args){
 export function createNewPassword(){
   login({
     title: 'Create password',
-    message: 'Your password must have at least 6 characters',
+    message: 'Your password must at least 6 characters',
     okButtonText: 'OK',
     // cancelButtonText: 'Cancel',
     // userName: 'NativeScript',
