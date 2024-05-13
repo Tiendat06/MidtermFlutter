@@ -14,6 +14,12 @@ export function onAddTap(args){
     const titleTextField = page.getViewById("title");
     const contentTextView = page.getViewById("content");
 
+    const isLock = ApplicationSettings.getBoolean("isLock");
+    var isHidden = 'collapsed';
+    if(isLock){
+      isHidden = 'visible';
+    }
+
     const titleValue = titleTextField.text; 
     const contentValue = contentTextView.text; 
 
@@ -33,7 +39,7 @@ export function onAddTap(args){
     }
 
     let newID = maxID + 1;
-    let newItem = { id: newID.toString(), title: titleValue, content: contentValue };
+    let newItem = { id: newID.toString(), title: titleValue, content: contentValue, hidden: isHidden };
 
     list.push(newItem);
     var updateJsonList = JSON.stringify(list);

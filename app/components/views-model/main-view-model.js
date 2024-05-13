@@ -18,25 +18,47 @@ export function createViewModel() {
     viewModel.message = getMessage(viewModel.counter);
 
     let list = [
-      {id: '1', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
-      {id: '2', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
-      {id: '3', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
-      {id: '4', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
-      {id: '5', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.'},
+      // {id: '2', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.', hidden: 'collapsed'},
+      // {id: '3', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.', hidden: 'collapsed'},
+      // {id: '4', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.', hidden: 'collapsed'},
+      // {id: '1', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.', hidden: 'collapsed'},
+      // {id: '5', title: 'Function in C', content: 'A function is a block of code which only runs when it is called.', hidden: 'collapsed'},
     ];
 
     const jsonList = ApplicationSettings.getString("list");
 
     if (jsonList) {
         list = JSON.parse(jsonList);
-        console.log(list);
+        // console.log(list);
     } else {
         const jsonList = JSON.stringify(list);
         ApplicationSettings.setString("list", jsonList);
     }
+    console.log(list);
 
-    viewModel.set('items', new ObservableArray(list))
+    // console.log(isLock);
+    // if(isLock){
+    //   console.log("OK");
+    //   viewModel.set('hidden', 'visible');
+    // }else{
+    //   viewModel.set("NO");
+    //   viewModel.set('hidden', 'collapsed');
+    // }
+    // const isLock = ApplicationSettings.getBoolean("isLock");
+    // var isHidden = 'collapsed';
+    // if(isLock){
+    //   isHidden = 'visible';
+    // }
 
+    // list = list.map(item => {
+    //   return { ...item, hidden: isHidden };
+    // });
+
+    // console.log(list);
+
+    viewModel.set('items', new ObservableArray(list));
+
+    // viewModel.set('hidden', isHidden);
 
     return viewModel;
 }
@@ -67,23 +89,21 @@ export function protectActions(args){
     var stackLayouts = [];
     if (jsonList) {
       list = JSON.parse(jsonList);
-      list.forEach(element => {
-        stackLayouts.push(element.id);
-      });
+      // console.log(list);
     }
     let stackLayout = null;
 
     const isLock = ApplicationSettings.getBoolean("isLock");
     const password = ApplicationSettings.getString("password");
 
-    let layout = page.getViewById("4")
-    if(isLock == true){
-      layout.visibility = "collapsed";
-      layout.visibility = "visible";
-    }else{
-      layout.visibility = "visible";
-      layout.visibility = "collapsed";
-    }
+    // let layout = page.getViewById("4")
+    // if(isLock == true){
+    //   layout.visibility = "collapsed";
+    //   layout.visibility = "visible";
+    // }else{
+    //   layout.visibility = "visible";
+    //   layout.visibility = "collapsed";
+    // }
     if(password){
 
       if(isLock == true){
@@ -98,11 +118,13 @@ export function protectActions(args){
           if(result.text == password){
             ApplicationSettings.setBoolean("isLock", false);
             console.log("OK unlock");
-            layout.visibility = "collapsed";
-            stackLayouts.forEach( id =>  {
-              stackLayout = page.getViewById(id);
-              stackLayout.visibility = "collapsed";
+            list.forEach( item =>  {
+              item.hidden = "collapsed";
             });
+            const jsonLists = JSON.stringify(list);
+            ApplicationSettings.setString("list", jsonLists);
+            page.frame.navigate('~/components/views/main/main-page');
+
             alert({
               title: 'Notice!',
               message: 'Unlock successfully',
@@ -129,11 +151,13 @@ export function protectActions(args){
             console.log("OK lock");
             ApplicationSettings.setBoolean("isLock", true);
             ApplicationSettings.setString("password", result.text);
-            layout.visibility = "visible";
-            stackLayouts.forEach( id => {
-              stackLayout = page.getViewById(id);
-              stackLayout.visibility = "visible";
+            list.forEach( item =>  {
+              item.hidden = "visible";
             });
+            const jsonLists = JSON.stringify(list);
+            ApplicationSettings.setString("list", jsonLists);
+            page.frame.navigate('~/components/views/main/main-page');
+
             alert({
               title: 'Notice!',
               message: 'Lock successfully',
@@ -160,11 +184,13 @@ export function protectActions(args){
       if(result.text != ""){
         ApplicationSettings.setBoolean("isLock", true);
         ApplicationSettings.setString("password", result.text);
-        layout.visibility = "visible";
-        stackLayouts.forEach( id => {
-          stackLayout = page.getViewById(id);
-          stackLayout.visibility = "visible";
+        list.forEach( item =>  {
+          item.hidden = "visible";
         });
+        const jsonLists = JSON.stringify(list);
+        ApplicationSettings.setString("list", jsonLists);
+        page.frame.navigate('~/components/views/main/main-page');
+
         alert({
           title: 'Notice!',
           message: 'Lock successfully',
@@ -187,11 +213,6 @@ export function createNewPassword(){
     title: 'Create password',
     message: 'Your password must at least 6 characters',
     okButtonText: 'OK',
-    // cancelButtonText: 'Cancel',
-    // userName: 'NativeScript',
-    // password: 'hunter2',
-    // neutralButtonText: 'Neutral',
-    // cancelable: true,
     passwordHint: 'Confirm password',
     userNameHint: 'New password',
   }).then((result) => {

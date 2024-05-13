@@ -5,11 +5,10 @@ import { ApplicationSettings } from '@nativescript/core';
 
 export function onNavigatingTo(args) {
   const page = args.object;
-  // ApplicationSettings.setBoolean("isLock", false);
-  // ApplicationSettings.remove("password");
 
   page.addCssFile('./main-page.css');
   page.bindingContext = createViewModel();
+
 }
 
 export function onFloatingButtonTaps(args) {
@@ -33,8 +32,17 @@ export function onFloatingButtonTaps(args) {
       cancelable: true,
       inputType: 'password',
     }).then((result) => {
+      console.log(result);
       if(result.text == password){
         page.frame.navigate(navigationEntry);
+      } else if(result.result == undefined){
+
+      } else{
+        alert({
+          title: 'Notice!',
+          message: 'Invalid password',
+          okButtonText: 'OK',
+        })
       }
     })
   }else{
