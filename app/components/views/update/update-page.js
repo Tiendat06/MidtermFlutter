@@ -30,9 +30,12 @@ export function goBack(args) {
             title: "Save change?",
             message: "Do you want to update this note ?",
             okButtonText: "Sure",
+            // cancelButtonText: "Cancel"
         }).then((result) => {
             if(result){
                 onUpdateTap(args);
+                page.frame.goBack();
+            }else{
                 page.frame.goBack();
             }
         });

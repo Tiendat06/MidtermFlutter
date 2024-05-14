@@ -5,7 +5,6 @@ import { ApplicationSettings } from '@nativescript/core';
 
 export function onNavigatingTo(args) {
   const page = args.object;
-
   page.addCssFile('./main-page.css');
   page.bindingContext = createViewModel();
 
